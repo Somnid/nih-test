@@ -16,29 +16,27 @@ const TestReporter = (function(){
 	}
 
 	function report(session){
-		let html = "<ul class='tests'>";
-		for(let i = 0; i < session.tests.length; i++){
-			html += this.reportTest(session.tests[i]);
-		}
-		html += "</ul>";
-		return html;
+		return `
+			<h1>${session.name}</h1>
+			${session.tests.reduce((html, t) => html + reportTest(t), "")}
+		`;
 	}
 
 	function reportTest(test){
 		const ok = test.assertions.every(a => a.expected === a.value);
-		let html = `<li class='test ${ok ? "success" : "error"}'>`;
-		for(let i = 0; i < test.assertions.length; i++){
-			html += reportAssertion(test.assertions[i]);
-		}
-		html += "</li>";
-		return html;
+		return `
+			<h2>${test.name}</h2>
+			<div class='test ${ok ? "success" : "error"}'>
+				${test.assertions.reduce((html,a) => html + reportAssertion(a), "")}
+			</div>
+		`;
 	}
 
 	function reportAssertion(assertion){
-		let ok = assertion.expected === assertion.value;
-		let resultText = ok ? "Ok!" : `Expected: ${assertion.expected}, but was ${assertion.value}`;
+		const ok = assertion.expected === assertion.value;
+		const resultText = ok ? "Ok!" : `Expected: ${assertion.expected}, but was ${assertion.value}`;
 		return `
-			<div class='assertion ${ok ? "success" : "error"}'>"
+			<div class='assertion ${ok ? "success" : "error"}'>
 				<strong>${ok ? "Success" : "Failed"}:</strong>
 				<span>${assertion.description}. </span>
 				<span>${resultText}<span>

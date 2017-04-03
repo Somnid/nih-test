@@ -5,7 +5,7 @@ const NihTest = (function(){
 		sessionFunc(session);
 		const reporter = TestReporter.create();
 		let html = reporter.report(session);
-		document.body.innerHTML = html;
+		document.querySelector(".report").innerHTML = html;
 	}
 
 	return {

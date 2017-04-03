@@ -16,6 +16,7 @@ const Test = (function(){
 		test.init = init.bind(test);
 		test.assertOk = assertOk.bind(test);
 		test.assertNotOk = assertNotOk.bind(test);
+		test.assertEqual = assertEqual.bind(test);
 	}
 
 	function init(){
@@ -35,6 +36,14 @@ const Test = (function(){
 		this.assertions.push({
 			value,
 			expected: false,
+			description
+		});
+	}
+
+	function assertEqual(value, expected, description){
+		this.assertions.push({
+			value,
+			expected,
 			description
 		});
 	}
