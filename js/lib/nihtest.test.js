@@ -17,6 +17,7 @@ const Test = (function(){
 		test.assertOk = assertOk.bind(test);
 		test.assertNotOk = assertNotOk.bind(test);
 		test.assertEqual = assertEqual.bind(test);
+		test.assertTypeStructEqual = assertTypeStructEqual.bind(test);
 	}
 
 	function init(){
@@ -26,6 +27,7 @@ const Test = (function(){
 
 	function assertOk(value, description){
 		this.assertions.push({
+			type: "ok",
 			value,
 			expected: true,
 			description
@@ -34,6 +36,7 @@ const Test = (function(){
 
 	function assertNotOk(value, description){
 		this.assertions.push({
+			type: "notOk",
 			value,
 			expected: false,
 			description
@@ -42,6 +45,16 @@ const Test = (function(){
 
 	function assertEqual(value, expected, description){
 		this.assertions.push({
+			type: "equal",
+			value,
+			expected,
+			description
+		});
+	}
+
+	function assertTypeStructEqual(value, expected, description){
+		this.assertions.push({
+			type: "typeStructEqual",
 			value,
 			expected,
 			description

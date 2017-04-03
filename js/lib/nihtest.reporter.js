@@ -1,4 +1,4 @@
-const TestReporter = (function(){
+const NihTestReporter = (function(){
 
 	const defaults = {};
 
@@ -23,7 +23,7 @@ const TestReporter = (function(){
 	}
 
 	function reportTest(test){
-		const ok = test.assertions.every(a => a.expected === a.value);
+		const ok = test.assertions.every(NihTestAssertions.assertionPassed);
 		return `
 			<h2>${test.name}</h2>
 			<div class='test ${ok ? "success" : "error"}'>
@@ -33,7 +33,7 @@ const TestReporter = (function(){
 	}
 
 	function reportAssertion(assertion){
-		const ok = assertion.expected === assertion.value;
+		let ok = NihTestAssertions.assertionPassed(assertion);
 		const resultText = ok ? "Ok!" : `Expected: ${assertion.expected}, but was ${assertion.value}`;
 		return `
 			<div class='assertion ${ok ? "success" : "error"}'>

@@ -1,9 +1,9 @@
-const NihTest = (function(){
+NihTest = (function(){
 
 	function testSession(name, sessionFunc){
 		const session = TestSession.create({ name });
 		sessionFunc(session);
-		const reporter = TestReporter.create();
+		const reporter = NihTestReporter.create();
 		let html = reporter.report(session);
 		document.querySelector(".report").innerHTML = html;
 	}
@@ -11,5 +11,4 @@ const NihTest = (function(){
 	return {
 		testSession
 	};
-
 })();

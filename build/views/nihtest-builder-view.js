@@ -3,7 +3,8 @@ const NihTestBuilderView = (function() {
 		"core",
 		"test",
 		"session",
-		"reporter"
+		"assertions",
+		"reporter",
 	];
 
 	function create() {
